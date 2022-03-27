@@ -17,13 +17,19 @@ export class LoginPage implements OnInit {
   username:string;
   password:string;
   async login(form) {
-    this.loginService.login(form.value).subscribe((res) =>{
+    this.loginService.login(form.value).subscribe(async (res) =>{
       this.router.navigateByUrl('home');
+      const toast = await this.toastController.create({
+        color: 'dark',
+        duration: 2000,
+        message: '<ion-icon name="checkmark-outline"></ion-icon> Login successful.',
+      });
+      await toast.present();
     },async error=>{
       const toast = await this.toastController.create({
         color: 'dark',
         duration: 2000,
-        message: '<ion-icon name="alert-outline"></ion-icon> Wrong Email or Password',
+        message: '<ion-icon name="alert-outline"></ion-icon> Wrong Email or Password.',
       });
       await toast.present();
     }
